@@ -4,7 +4,7 @@ Trabalho Mini CPS: Sistema de Controle de Estoque - Hamburgueria
 
 Alunos:
 Adryan Rodrigues Dos Santos 
-
+Henzo Marcelo de Matos Inacio
 
 """
 import sqlite3
