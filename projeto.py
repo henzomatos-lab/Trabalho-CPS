@@ -136,6 +136,8 @@ while True:
                             situacao = "OK"
                         print("Situação do Produto Movimentado (ID, Nome, Saldo Atual e Situação): ")
                         print(f"{id_produto} | {nome_produto} | {saldo_produto} | {situacao}")
+                        break
+                break
 
     elif opcao == "4":
         produtos = cursor.execute("SELECT id_produto, nome_produto, saldo FROM produtos").fetchall()
