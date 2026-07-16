@@ -74,9 +74,11 @@ while True:
                 continue
             else:
                 quantidade = int(input("Quantidade inicial: "))
+                estoque_minimo = int(input("Quantidade do estoque mínimo: "))
+
                 cursor.execute(
-                    "INSERT INTO produtos (nome_produto, saldo) VALUES (?, ?)",
-                    (nome, quantidade)
+                    "INSERT INTO produtos (nome_produto, saldo, estoque_minimo) VALUES (?, ?, ?)",
+                    (nome, quantidade, estoque_minimo)
                 )
                 conexao.commit()
                 print("Produto cadastrado!")
