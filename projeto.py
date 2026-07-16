@@ -7,11 +7,14 @@ Adryan Rodrigues Dos Santos
 Henzo Marcelo de Matos Inacio
 
 """
+# Importa a biblioteca responsável pela conexão com o banco SQLite
 import sqlite3
 
+# Cria (ou abre) o banco de dados e inicia o cursor para executar comandos SQL
 conexao = sqlite3.connect("loja.db")
 cursor = conexao.cursor()
 
+# Criação das tabelas do sistema caso ainda não existam
 cursor.execute("""CREATE TABLE IF NOT EXISTS produtos (
     id_produto   INTEGER PRIMARY KEY AUTOINCREMENT,
     nome_produto TEXT NOT NULL,
@@ -56,7 +59,7 @@ while True:
     print("0 - Sair")
     opcao = input("Opção: ")
 
-
+# Cadastro de novos produtos
     if opcao == "1":
         nome = input("Nome do produto: ")
         categorias = cursor.execute("SELECT nome_categoria FROM categorias").fetchall()
@@ -84,13 +87,14 @@ while True:
                 print("Produto cadastrado!")
                 break
 
+    # Exibe todos os produtos cadastrados e seus respectivos saldos
     elif opcao == "2":
         produtos = cursor.execute("SELECT nome_produto, saldo FROM produtos").fetchall()
         print("Produtos Cadastrados: \n")
         for p in produtos:
             print(p[0], "- saldo:", p[1])
 
-
+# Registro de saída de produtos do estoque
     elif opcao == "3":
         produtos = cursor.execute("SELECT id_produto, nome_produto, saldo FROM produtos").fetchall()
         print("Produtos cadastrados (ID, Nome e Saldo Atual): ")
@@ -139,6 +143,7 @@ while True:
                         break
                 break
 
+    # Registro de entrada de produtos no estoque
     elif opcao == "4":
         produtos = cursor.execute("SELECT id_produto, nome_produto, saldo FROM produtos").fetchall()
         print("Produtos cadastrados (ID, Nome e Saldo Atual): ")
@@ -176,6 +181,7 @@ while True:
             print("Situação do Produto Movimentado (ID, Nome, Saldo Atual e Situação): ")
             print(f"{id_produto} | {nome_produto} | {saldo_produto} | {situacao}")
 
+    # Cadastro de novas categorias
     elif opcao == "5":
         nome = input("Nome do categoria: ")
         cursor.execute(
@@ -192,4 +198,5 @@ while True:
     else:
         print("Opção inválida.")
 
+# Encerra a conexão com o banco de dados
 conexao.close()
