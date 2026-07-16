@@ -5,6 +5,7 @@ Trabalho Mini CPS: Sistema de Controle de Estoque - Hamburgueria
 Alunos:
 Adryan Rodrigues Dos Santos 
 Henzo Marcelo de Matos Inacio
+Vitor Jose Januario
 
 """
 # Importa a biblioteca responsável pela conexão com o banco SQLite
