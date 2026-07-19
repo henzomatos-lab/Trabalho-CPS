@@ -169,7 +169,7 @@ while True:
 
             cursor.execute("UPDATE produtos SET saldo = saldo + ? WHERE id_produto = ?", (quantidade, id_produto))
             conexao.commit()
-            print(f"Movimentação registrada!\nQuantidade subtraída: {quantidade}")
+            print(f"Movimentação registrada!\nQuantidade adicionada: {quantidade}")
 
             situacao_produto_movimentado = cursor.execute("SELECT id_produto, nome_produto, saldo, estoque_minimo FROM produtos WHERE id_produto = ?", (id_produto,)).fetchone()
 
