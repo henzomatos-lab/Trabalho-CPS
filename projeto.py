@@ -64,25 +64,30 @@ while True:
 # Cadastro de novos produtos
     if opcao == "1":
         nome = input("Nome do produto: ")
-        categorias = cursor.execute("SELECT nome_categoria FROM categorias").fetchall()
-        lista_categorias = [linha[0] for linha in categorias]
+
+        categorias = cursor.execute("SELECT id_categoria, nome_categoria FROM categorias").fetchall()
+
+        lista_ids = [str(linha[0]) for linha in categorias]
 
         while True:
-            print("Categorias Disponíveis:")
-            for cat in lista_categorias:
-                print(f"- {cat}")
+            print("\nCategorias Disponíveis (ID Categoria, Nome Categoria):")
+            for id_categoria, nome_categoria in categorias:
+                print(f"{id_categoria} - {nome_categoria}")
 
-            categoria = input("Selecione a Categoria: ")
+            categoria = input("Selecione o ID da categoria: ")
 
-            if categoria not in lista_categorias:
-                print("Categoria inválida.")
+            if categoria not in lista_ids:
+                print("ID de categoria inválido.")
                 continue
             else:
                 quantidade = int(input("Quantidade inicial: "))
                 estoque_minimo = int(input("Quantidade do estoque mínimo: "))
 
                 cursor.execute(
-                    "INSERT INTO produtos (nome_produto, saldo, estoque_minimo) VALUES (?, ?, ?)",
+                    """
+                    INSERT INTO produtos (nome_produto, saldo, estoque_minimo)
+                    VALUES (?, ?, ?)
+                    """,
                     (nome, quantidade, estoque_minimo)
                 )
                 conexao.commit()
