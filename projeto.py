@@ -52,11 +52,12 @@ conexao.commit()
 while True:
     print("")
     print("=== HAMBURGUERIA - CONTROLE DE ESTOQUE ===")
-    print("1 - Cadastrar produto")
-    print("2 - Relatório de inventário")
-    print("3 - Registrar Movimentação (Saída)")
-    print("4 - Registrar Movimentação (Entrada)")
-    print("5 - Cadastar Categoria")
+    print("1 - Cadastrar Produto")
+    print("2 - Relatório de Inventário")
+    print("3 - Relatório de Movimentação")
+    print("4 - Registrar Movimentação (Saída)")
+    print("5 - Registrar Movimentação (Entrada)")
+    print("6 - Cadastar Categoria")
     print("0 - Sair")
     opcao = input("Opção: ")
 
@@ -95,8 +96,15 @@ while True:
         for p in produtos:
             print(p[0], "- saldo:", p[1])
 
-# Registro de saída de produtos do estoque
+    # Exibe todas as movimentações realizadas
     elif opcao == "3":
+        movimentacoes = cursor.execute("""SELECT m.id_produto, p.nome_produto, m.quantidade, m.tipo_movimentacao, m.data_movimentacao FROM movimentacoes m JOIN produtos p ON m.id_produto = p.id_produto""").fetchall()
+        print("Movimentações Registradas (ID do produto, Nome Produto, Quantidade, Tipo de Movimentação, Data Movimentação): \n")
+        for m in movimentacoes:
+            print(f"{m[0]} | {m[1]} | {m[2]} | {m[3]} | {m[4]}")
+
+# Registro de saída de produtos do estoque
+    elif opcao == "4":
         produtos = cursor.execute("SELECT id_produto, nome_produto, saldo FROM produtos").fetchall()
         print("Produtos cadastrados (ID, Nome e Saldo Atual): ")
 
@@ -145,7 +153,7 @@ while True:
                 break
 
     # Registro de entrada de produtos no estoque
-    elif opcao == "4":
+    elif opcao == "5":
         produtos = cursor.execute("SELECT id_produto, nome_produto, saldo FROM produtos").fetchall()
         print("Produtos cadastrados (ID, Nome e Saldo Atual): ")
         for p in produtos:
@@ -183,7 +191,7 @@ while True:
             print(f"{id_produto} | {nome_produto} | {saldo_produto} | {situacao}")
 
     # Cadastro de novas categorias
-    elif opcao == "5":
+    elif opcao == "6":
         nome = input("Nome do categoria: ")
         cursor.execute(
             "INSERT INTO categorias (nome_categoria) VALUES (?)",
